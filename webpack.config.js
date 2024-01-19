@@ -10,8 +10,8 @@ module.exports = {
      * 以下配置告知 webpack-dev-server 将 dist 目录下的文件作为可访问资源部署在 localhost:8080。。
      */
     devServer: {
-		static: "./"
-	},
+        static: "./"
+    },
     output: {
         // 把所有依赖的模块合并输出到一个 bundle.js 文件
         filename: 'bundle.js',
@@ -24,8 +24,15 @@ module.exports = {
                 // 用正则去匹配要用该 loader 转换的 CSS 文件
                 test: /\.css$/,
                 use: [MiniCssExtractPlugin.loader, "css-loader"],
-            }
-        ]
+            },
+            {
+                test: /\.js$/,
+                use: ['babel-loader'],
+            },
+        ],
+        
     },
     plugins: [new MiniCssExtractPlugin()],
+    // 输出 source-map 方便直接调试 ES6 源码
+    devtool: 'source-map'
 };
